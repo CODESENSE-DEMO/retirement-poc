@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: retirement-poc
+
+  # 화면 문구는 messages/result_ko.properties (코드 10000~)
+  messages:
+    basename: messages/result
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  web:
+    locale: ko
+    locale-resolver: fixed
+
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    url: jdbc:h2:mem:retirementdb
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    open-in-view: false
+
+server:
+  port: 8080
+
+# ---------------------------------------------------------------------------
+# Union Framework 설정 (union-starter)
+# ---------------------------------------------------------------------------
+union:
+  web:
+    trace-header: X-Trace-Id
+    logging:
+      enabled: true
+      exclude-paths: [/css/**, /js/**]
+    response-wrapping:
+      enabled: true
+    cors:
+      enabled: true
+      allowed-origins: ["*"]
+  security:
+    enabled: true
+    jwt:
+      secret: ${JWT_SECRET:change-me-in-production-32bytes-or-more}
+      access-token-expiry: 1h
+      refresh-token-expiry: 7d
+    # 화면과 은퇴설계 시뮬레이션은 저장·개인정보가 없어 비로그인 허용 (FW-05: 제외 경로는 설정으로만)
+    permit-all:
+      - /
+      - /retirement/**
+      - /ar-link/**
+      - /api/v1/retirement-plans/**
+      - /css/**
+      - /js/**
+      - /error
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] [%X{traceId:-}] %-5level %logger{36} - %msg%n"
+  level:
+    root: INFO
+    union.request: INFO

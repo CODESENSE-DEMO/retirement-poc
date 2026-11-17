@@ -1,0 +1,17 @@
+target/
+build/
+.gradle/
+.idea/
+*.iml
+.DS_Store
+.metadata/
+.settings/
+.classpath
+.project
+.vscode/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# coa CLI 로컬 상태(DB·로그·대화) — PC마다 다르므로 커밋하지 않는다.
+.coa/

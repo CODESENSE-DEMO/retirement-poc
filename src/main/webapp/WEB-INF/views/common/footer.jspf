@@ -1,0 +1,15 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+</main>
+<%-- 공통 확인 모달 (로그인 안내: 10162 / 네 10163 / 아니요 10164) --%>
+<div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmMessage" hidden>
+    <div class="modal-box">
+        <p id="confirmMessage"><spring:message code="10162"/></p>
+        <div class="btn-row">
+            <button type="button" class="btn btn-sub" data-confirm="no"><spring:message code="10164"/></button>
+            <button type="button" class="btn" data-confirm="yes"><spring:message code="10163"/></button>
+        </div>
+    </div>
+</div>
+<script src="<c:url value='/js/app.js'/>"></script>
+</body>
+</html>
